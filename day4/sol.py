@@ -27,7 +27,7 @@ def sol1(q):
 
 def sol2(q):
     vp = sol1(q)
-    valid = filter(lambda p: validPid(p["pid"]), filter(lambda p: validEcl(p["ecl"]), filter(lambda p: validHcl(p["hcl"]), filter(lambda p: validHgt(p["hgt"]), filter(lambda p: validEyr(int(p["eyr"])), filter(lambda p: validByr(int(p["byr"])), filter(lambda p: validIyr(int(p["iyr"])), vp)))))))
+    valid = filter(lambda p: validPid(p["pid"]) and validEcl(p["ecl"]) and validHcl(p["hcl"]) and validHgt(p["hgt"]) and validEyr(int(p["eyr"])) and validByr(int(p["byr"])) and validIyr(int(p["iyr"])), vp)
     return list(valid)
 
 def validHgt(input):
