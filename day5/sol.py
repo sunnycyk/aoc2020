@@ -22,11 +22,10 @@ def sol2(q):
     st = ids[0]
     a = ids[0] & 1
     for x in ids:
-        if (x & a) != a:
-            if (x - 1) not in ids:
-                return x - 1
+        if (x & 0x1) != a:
+           return x - 1
         else:
-            a = ~a & 1
+            a = ~a & 0x1
 
 
 def findRow(row,  frm, to):
