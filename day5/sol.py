@@ -20,9 +20,13 @@ def sol2(q):
     ids = sol1(q)
     ids.sort()
     st = ids[0]
-    for i, x in enumerate(ids):
-        if i + st != x:
-           return x
+    a = ids[0] & 1
+    for x in ids:
+        if (x & a) != a:
+            if (x - 1) not in ids:
+                return x - 1
+        else:
+            a = ~a & 1
 
 
 def findRow(row,  frm, to):
