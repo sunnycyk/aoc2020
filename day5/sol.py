@@ -7,9 +7,7 @@ def readFileToList(filename):
         row = input[:7]
         seat = input[-3:]
         q.append((row, seat))
-
     return q
-
 
 def sol1(q):
     ids = []
@@ -28,8 +26,7 @@ def sol2(q):
 
 
 def findRow(row,  frm, to):
-    l = len(row)
-    if l == 0:
+    if len(row) == 0:
         return frm
     if row[0] == "F":
         return findRow(row[1:], frm, frm + int((to - frm) / 2))
@@ -37,8 +34,7 @@ def findRow(row,  frm, to):
         return findRow(row[1:], frm + int((to - frm)/2) + 1, to)
     
 def findSeat(seat,  frm, to):
-    l = len(seat)
-    if l == 0:
+    if len(seat) == 0:
         return frm
     if seat[0] == "L":
         return findSeat(seat[1:], frm, frm + int((to - frm) / 2))
