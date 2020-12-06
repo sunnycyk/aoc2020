@@ -44,6 +44,16 @@ def findSeat(seat,  frm, to):
     elif seat[0] == "R":
         return findSeat(seat[1:], frm + int((to - frm)/2) + 1, to)
 
+def alt_sol1():
+    f = open("input.txt", "r")    
+    q = []
+    inputs = f.readlines()
+    for input in inputs:
+        input = input.replace("B", "1").replace("R", "1").replace("F", "0").replace("L", "0")
+        q.append(int(input, 2))
+    return max(q)
+        
+
 if __name__ == "__main__":
     q = readFileToList("input.txt")
     # BFFFBBFRRR: row 70, column 7, seat ID 567.
@@ -55,3 +65,5 @@ if __name__ == "__main__":
    
     print(max(sol1(q)))
     print(sol2(q))
+
+    print(alt_sol1())
