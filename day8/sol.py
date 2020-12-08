@@ -12,9 +12,7 @@ def readFileToList(filename):
     instrs = []
     for input in inputs:
         op, arg = input.split(" ")
-        incdec = arg[0]
-        value = int(arg[1:])
-        instrs.append([OPS[op], incdec, value])
+        instrs.append([OPS[op], int(arg)])
     return instrs
 
 class Console(object):
@@ -31,13 +29,13 @@ class Console(object):
             if self.ptr in self.mem: # infintite loop detection
                 break
             self.mem.append(self.ptr)
-            instr, op, v = self.instrs[self.ptr]
+            instr, v = self.instrs[self.ptr]
             if instr == 0:
-                self.nop(op, v)
+                self.nop(v)
             elif instr == 1:
-                self.jmp(op, v)
+                self.jmp(v)
             elif instr == 2:
-                self.acc(op, v)
+                self.acc(v)
 
     def playWithFix(self):
         testInstr = []
@@ -50,38 +48,32 @@ class Console(object):
                 self.mem = []
                 continue
             self.mem.append(self.ptr)
-            instr, op, v = self.instrs[self.ptr]
+            instr, v = self.instrs[self.ptr]
             if instr == 0:
                 if lastFixPtr == -1 and self.ptr not in testInstr:
                     testInstr.append(self.ptr)
                     lastFixPtr = self.ptr
-                    self.jmp(op, v)
+                    self.jmp(v)
                 else:
-                    self.nop(op, v)
+                    self.nop(v)
             elif instr == 1:
                 if lastFixPtr == -1 and self.ptr not in testInstr:
                     testInstr.append(self.ptr)
                     lastFixPtr = self.ptr
-                    self.nop(op, v)
+                    self.nop(v)
                 else:
-                    self.jmp(op, v)
+                    self.jmp(v)
             elif instr == 2:
-                self.acc(op, v)
+                self.acc(v)
 
-    def nop(self, op, v):
+    def nop(self, v):
         self.ptr = self.ptr + 1
 
-    def jmp(self, op, v):
-        if op == "+":
-            self.ptr = self.ptr + v
-        else:
-            self.ptr = self.ptr - v
+    def jmp(self, v):
+        self.ptr = self.ptr + v
 
-    def acc(self, op, v):
-        if op == "+":
-            self.accumulator = self.accumulator + v
-        else:
-            self.accumulator = self.accumulator - v
+    def acc(self, v):
+        self.accumulator = self.accumulator + v
         self.ptr = self.ptr + 1
 
 
