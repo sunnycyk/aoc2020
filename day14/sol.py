@@ -28,14 +28,13 @@ def sol1(q):
     return reduce(lambda  a, b: a + b, mem.values())
 
 def sol2(q):
-    mem = {}
+    mem = []
     mem2 = {}
     mask = ""
     for p in q:
         if p.startswith("mask"):
             g = re.search("^mask = ([X10]{36})?", p)
             mask = g[1]
-            print("mask")
         else:
             g = re.search("^mem\[(\d+)\] = (\d+)?", p)
             addr = list(format(int(g[1]), '036b'))
@@ -43,23 +42,27 @@ def sol2(q):
             for i in range(len(addr)):
                 if mask[i] != '0':
                     addr[i] = mask[i]
-            mem[''.join(addr)] = value
+            mem.append((''.join(addr), value))
 
-
-    for addr in mem.keys():
-        v = mem[addr]
+    for addr, v in mem:
         p = []
+        diff = 0
         for i, b in enumerate(reversed(addr)):
             if b == 'X':
                 if len(p) == 0:
-                    p.append(2**i - 1)
-                    p.append(2**i)
+                    p.append(diff)
+                    p.append(2**i + diff)
+                    diff = 0
                 else:
                     for x in p.copy():
                         p.append(x + (2**i))
             elif b == '1':
+                if len(p) == 0:
+                    if i == 0:
+                        diff = 1
+                    else:
+                        diff = diff + 2**i
                 p = [ x + 2**i for x in p ]
-        print(len(p))
         for a in p:
             mem2[a] = v    
     return reduce(lambda  a, b: a + b, mem2.values(), 0)
