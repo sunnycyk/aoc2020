@@ -89,6 +89,6 @@ def sol2(fields, myticket, nearby):
 
 
 if __name__ == "__main__":
-    field, myticket, nearby = readFileToList("input.txt")
+    field, myticket, nearby = readFileToList("testcase.txt")
     print(sol1(field, myticket, nearby))
     print(sol2(field, myticket, nearby))
