@@ -31,7 +31,6 @@ def sol1(r, allgen, all):
                     continue
                 r[k] = r[k] - f
     alg = reduce(lambda a, b: a.union(b), r.values(), set())
-    print(alg)
     total = 0
     for i in all:
         total += len(i - alg)
